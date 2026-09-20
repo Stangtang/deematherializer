@@ -1,17 +1,22 @@
-#include "./include/Operation.hpp"
-#include "./src/Proposition.cpp"
+#include "./include/CompoundExpression.hpp"
+#include "./include/Connective.hpp"
+#include "./include/Variable.hpp"
 
 #include <iostream>
 #include <memory>
 
 int main() {
-  auto p = std::make_shared<Proposition>(true);
-  auto q = std::make_shared<Proposition>(false);
-  auto alpha = std::make_shared<Proposition>(Operation::IMPLICATION, p, q);
-  std::cout << "alpha->evaluate: " << alpha->evaluate() << '\n';
-  q.get()->operation() = Operation::TRUE;
-  std::cout << "alpha->evaluate: " << alpha->evaluate() << '\n';
-  q = std::make_shared<Proposition>(false);
-  std::cout << "alpha->evaluate: " << alpha->evaluate() << '\n';
+  auto p = std::make_shared<Variable>("var1", true),
+       q = std::make_shared<Variable>("var2", false);
+  std::cout << "p->name() p->evaluate() = " << p->name() << ' ' << p->evaluate()
+            << '\n';
+  std::cout << "q->name() q->evaluate() = " << q->name() << ' ' << q->evaluate()
+            << '\n';
+  auto alpha =
+      std::make_shared<CompoundExpression>(Connective::IMPLICATION, p, q);
+  std::cout << "p implies q = " << alpha->evaluate() << '\n';
+  q->value() = true;
+  std::cout << "let q->value() = 1;\np implies q = " << alpha->evaluate()
+            << '\n';
   return 0;
 }
