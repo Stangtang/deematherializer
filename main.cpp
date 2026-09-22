@@ -3,9 +3,11 @@
 #include "./include/Variable.hpp"
 
 #include <iostream>
+#include <iomanip>
 #include <memory>
 
 int main() {
+  std::cout << std::boolalpha;
   auto p = std::make_shared<Variable>("var1", true),
        q = std::make_shared<Variable>("var2", false);
   std::cout << "p->name() p->evaluate() = " << p->name() << ' ' << p->evaluate()
